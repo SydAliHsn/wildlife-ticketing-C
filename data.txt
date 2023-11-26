@@ -1,0 +1,16 @@
+
+
+                Ticket Type                         |   1-Day Cost   |   2-Day Cost
+----------------------------------------------------|----------------|-----------------
+One Adult                                           |     $20.00     |     $30.00  
+One Child (an adult may bring upto 2 children)      |     $20.00     |     $30.00  
+One Senior                                          |     $20.00     |     $30.00  
+Family Ticker (upto 2 adults/seniors and 3 children)|     $20.00     |     $30.00  
+Groups of 6 people or more, price per person        |     $20.00     |     $30.00  
+
+
+                          Extra Attraction                | Cost per Person
+                    --------------------------------------|----------------
+                    Lion Feeding                          |     $2.50
+                    Penguin Feeding                       |     $2.00
+                    Evening Barbecue (2-day tickets only) |     $5.00
