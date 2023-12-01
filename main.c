@@ -63,7 +63,7 @@ int main()
         case 'r':
             clrscr();
             printf("\n////////////////////////////////// REVIEW YOUR BOOKING ////////////////////////////////////");
-            printf("\n\n\n\t\tPlease enter your booking ID: ");
+            printf("\n\n\t\tPlease enter your booking ID: ");
             scanf("%d", &bookingId);
             displayBooking(bookingId);
             break;
