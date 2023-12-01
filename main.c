@@ -21,7 +21,7 @@ int ticketPrices[5] = {20, 12, 16, 60, 15};
 float attractionPrices[3] = {2.5, 2, 5};
 int personsPerTicket[5] = {1, 1, 1, 5, 1};
 
-void displayFile(char[10]);
+int displayFile(char[10]);
 void displayAvailableDays();
 int createBooking();
 void clrscr();
@@ -30,12 +30,12 @@ float calculatePrice(struct Booking);
 int generateBookingId();
 char *getTicketName(int);
 int createBookingFile(struct Booking);
+void displayBooking(int);
 
 int main()
 {
     char choice;
     int bookingId;
-    char bookingFileName[4];
 
     do
     {
@@ -53,13 +53,19 @@ int main()
         case 'q':
             return 0;
             break;
+
         case 'b':
             bookingId = createBooking();
             printf("\n\n\n");
-            sprintf(bookingFileName, "%d.txt", bookingId);
-            displayFile(bookingFileName);
-            printf("\n\n\nPress any key to continue.");
-            getch();
+            displayBooking(bookingId);
+            break;
+
+        case 'r':
+            clrscr();
+            printf("\n////////////////////////////////// REVIEW YOUR BOOKING ////////////////////////////////////");
+            printf("\n\n\n\t\tPlease enter your booking ID: ");
+            scanf("%d", &bookingId);
+            displayBooking(bookingId);
             break;
         }
     } while (choice != 'q');
@@ -67,7 +73,18 @@ int main()
     return 0;
 }
 
-void displayFile(char fileName[10])
+void displayBooking(int bookingId)
+{
+    char fileName[8];
+
+    sprintf(fileName, "%d.txt", bookingId);
+
+    displayFile(fileName);
+    printf("\n\n\nPress any key to continue.");
+    getch();
+}
+
+int displayFile(char fileName[10])
 {
     FILE *file;
     char ch;
@@ -76,8 +93,8 @@ void displayFile(char fileName[10])
 
     if (file == NULL)
     {
-        printf("File not found");
-        return;
+        // printf("File not found");
+        return 1;
     }
 
     do
@@ -87,6 +104,7 @@ void displayFile(char fileName[10])
     } while (ch != EOF);
 
     fclose(file);
+    return 0;
 }
 
 void displayAvailableDays()
@@ -128,9 +146,9 @@ char getChoice()
     char choice;
     do
     {
-        printf("\n\n\n\tDo you want to: \n\t\tQuit (q) \n\t\tCreate a booking (b) \n\tEnter your choice: ");
+        printf("\n\n\n\tDo you want to: \n\t\tQuit (q) \n\t\tCreate a booking (b) \n\t\tReview a booking (r) \n\tEnter your choice: ");
         choice = getche();
-    } while (choice != 'q' && choice != 'b');
+    } while (choice != 'q' && choice != 'b' && choice != 'r');
     return choice;
 }
 
