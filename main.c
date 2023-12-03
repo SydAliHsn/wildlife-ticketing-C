@@ -163,7 +163,9 @@ char getChoice()
 
 int createBooking()
 {
-    struct Booking booking;
+    struct Booking booking = {
+        attractions : {0, 0, 0},
+    };
     int numAttractions;
     char choice;
     int i;
