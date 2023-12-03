@@ -240,8 +240,8 @@ int createBooking()
         default:
             break;
         }
-        scanf(" %c", &choice);
-        choice == 'y' && (booking.attractions[i] = 1);
+        choice = getche();
+        booking.attractions[i] = choice == 'y' ? 1 : 0;
     }
 
     booking.price = calculatePrice(booking);
