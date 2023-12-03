@@ -189,10 +189,10 @@ int createBooking()
         printf("\n\n\tPlease enter the ticket type Id (1-5): ");
         scanf("%d", &booking.ticketId);
 
-        if (ticketPrices[booking.ticketId - 1] == 0)
+        if (booking.ticketId > 5 || booking.ticketId < 1)
             printf("\n\tThis ticket is not available. Please choose another one.");
 
-    } while (ticketPrices[booking.ticketId - 1] == 0);
+    } while (booking.ticketId > 5 || booking.ticketId < 1);
 
     do
     {
