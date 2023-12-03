@@ -317,8 +317,13 @@ char *getTicketName(int ticketId)
 
 int createBookingFile(struct Booking booking)
 {
-    char bookingString[100];
+    char bookingString[150];
     char fileName[8];
+    char firstDate[20];
+    char secondDate[20];
+    strcpy(firstDate, getDateString(booking.visitDay));
+    strcpy(secondDate, getDateString(booking.visitDay + 1));
+
     sprintf(fileName, "%d.txt", booking.id);
     FILE *file = fopen(fileName, "w");
 
@@ -328,7 +333,7 @@ int createBookingFile(struct Booking booking)
         return 1;
     };
 
-    fprintf(file, "\n\t\tBooking ID: %d\n\t\tCustomer Name: %s\t\tTicket Type: %s\n\t\tNo. of Tickets: %d\n\t\tAttractions:\n\t\t\tLion Feeding: %s\n\t\t\tPenguin Feeding: %s\n\t\t\tEvening Barbecue: %s\n\t\tPrice: $%.2f",
+    fprintf(file, "\n\t\tBooking ID: %d\n\t\tCustomer Name: %s\t\tTicket Type: %s\n\t\tNo. of Tickets: %d\n\t\tAttractions:\n\t\t\tLion Feeding: %s\n\t\t\tPenguin Feeding: %s\n\t\t\tEvening Barbecue: %s\n\t\tPrice: $%.2f\n\t\tVisiting Date(s): %s - %s",
             booking.id,
             booking.name,
             getTicketName(booking.ticketId),
@@ -336,7 +341,9 @@ int createBookingFile(struct Booking booking)
             booking.attractions[0] == 1 ? "yes" : "no",
             booking.attractions[1] == 1 ? "yes" : "no",
             booking.attractions[2] == 1 ? "yes" : "no",
-            booking.price);
+            booking.price,
+            firstDate,
+            booking.days == 2 ? secondDate : "");
 
     fclose(file);
 }
