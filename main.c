@@ -31,6 +31,7 @@ int generateBookingId();
 char *getTicketName(int);
 int createBookingFile(struct Booking);
 void displayBooking(int);
+char *getDateString(int);
 
 int main()
 {
@@ -107,13 +108,28 @@ int displayFile(char fileName[10])
     return 0;
 }
 
-void displayAvailableDays()
+char *getDateString(int daysFromToday)
 {
+    static char date_str[20];
+
     // Get current time
     time_t t;
     struct tm *now;
     time(&t);
     now = localtime(&t);
+
+    // Calculate the date for the day in number of daysFromToday.
+    now->tm_mday += daysFromToday;
+    mktime(now);
+
+    // Format and print the date with the day of the week
+    strftime(date_str, sizeof(date_str), "%A %d/%m/%y", now);
+
+    return date_str;
+}
+
+void displayAvailableDays()
+{
 
     printf("\n\n\n\t\t\tAvailable dates in the next 2 weeks:");
     printf("\n----------------------------------------------------------------------------------------\n");
@@ -121,16 +137,9 @@ void displayAvailableDays()
     // Print the dates for the next 2 weeks with the day of the week
     for (int i = 1; i <= 14; i++)
     {
-        // Calculate the date for the next day
-        now->tm_mday += 1;
-        mktime(now);
+        printf("%2d: %20s\t", i, getDateString(i));
 
-        // Format and print the date with the day of the week
-        char date_str[20];
-        strftime(date_str, sizeof(date_str), "%A %d/%m/%y", now);
-        printf("%2d: %20s\t", i, date_str);
-
-        i % 3 == 0 && i != 0 && printf("\n\n");
+        i != 0 && i % 3 == 0 && printf("\n\n");
     }
 }
 
