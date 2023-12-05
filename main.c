@@ -32,6 +32,7 @@ char *getTicketName(int);
 int createBookingFile(struct Booking);
 void displayBooking(int);
 char *getDateString(int);
+void deleteBooking(int);
 
 int main()
 {
@@ -63,10 +64,18 @@ int main()
 
         case 'r':
             clrscr();
-            printf("\n////////////////////////////////// REVIEW YOUR BOOKING ////////////////////////////////////");
-            printf("\n\n\t\tPlease enter your booking ID: ");
+            printf("\n////////////////////////////////// REVIEW A BOOKING ////////////////////////////////////");
+            printf("\n\n\t\tPlease enter a booking ID: ");
             scanf("%d", &bookingId);
             displayBooking(bookingId);
+            break;
+
+        case 'd':
+            clrscr();
+            printf("\n////////////////////////////////// CANCEL A BOOKING ////////////////////////////////////");
+            printf("\n\n\t\tPlease enter a booking ID: ");
+            scanf("%d", &bookingId);
+            deleteBooking(bookingId);
             break;
         }
     } while (choice != 'q');
@@ -74,8 +83,36 @@ int main()
     return 0;
 }
 
-void deleteBooking()
+void deleteBooking(int bookingId)
 {
+    char fileName[9];
+    FILE *file;
+    int res;
+    char choice;
+
+    sprintf(fileName, "%d.txt", bookingId);
+
+    printf("\n\n\tThis is the booking you are going to delete: \n");
+    res = displayFile(fileName);
+
+    if (res != 0)
+    {
+        printf("\n\n\tNo booking found with this ID!");
+    }
+    else
+    {
+        printf("\n\n\tDo you want to delete this booking? (y/n): ");
+        choice = getche();
+
+        if (choice == 'y')
+        {
+            remove(fileName);
+            printf("\n\n\tBooking# %d deleted successfully.", bookingId);
+        }
+    }
+
+    printf("\n\tPress any key to continue.");
+    getche();
 }
 
 void displayBooking(int bookingId)
@@ -87,7 +124,7 @@ void displayBooking(int bookingId)
 
     res = displayFile(fileName);
 
-    if (res == 1)
+    if (res != 0)
     {
         printf("\n\n\t\tNo booking found with this ID!");
     }
@@ -166,9 +203,9 @@ char getChoice()
     char choice;
     do
     {
-        printf("\n\n\n\tDo you want to: \n\t\tQuit (q) \n\t\tCreate a booking (b) \n\t\tReview a booking (r) \n\tEnter your choice: ");
+        printf("\n\n\n\tDo you want to: \n\t\tQuit (q) \n\t\tCreate a booking (b) \n\t\tReview a booking (r) \n\t\tDelete a booking (d) \n\tEnter your choice: ");
         choice = getche();
-    } while (choice != 'q' && choice != 'b' && choice != 'r');
+    } while (choice != 'q' && choice != 'b' && choice != 'r' && choice != 'd');
     return choice;
 }
 
