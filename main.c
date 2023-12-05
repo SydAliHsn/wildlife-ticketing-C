@@ -85,7 +85,7 @@ int main()
 
 void deleteBooking(int bookingId)
 {
-    char fileName[9];
+    char fileName[10];
     FILE *file;
     int res;
     char choice;
@@ -117,7 +117,7 @@ void deleteBooking(int bookingId)
 
 void displayBooking(int bookingId)
 {
-    char fileName[8];
+    char fileName[10];
     int res;
 
     sprintf(fileName, "%d.txt", bookingId);
@@ -368,7 +368,7 @@ char *getTicketName(int ticketId)
 int createBookingFile(struct Booking booking)
 {
     char bookingString[150];
-    char fileName[8];
+    char fileName[10];
     char firstDate[20];
     char secondDate[20];
     strcpy(firstDate, getDateString(booking.visitDay));
