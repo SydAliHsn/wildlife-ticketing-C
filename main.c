@@ -74,13 +74,24 @@ int main()
     return 0;
 }
 
+void deleteBooking()
+{
+}
+
 void displayBooking(int bookingId)
 {
     char fileName[8];
+    int res;
 
     sprintf(fileName, "%d.txt", bookingId);
 
-    displayFile(fileName);
+    res = displayFile(fileName);
+
+    if (res == 1)
+    {
+        printf("\n\n\t\tNo booking found with this ID!");
+    }
+
     printf("\n\n\nPress any key to continue.");
     getch();
 }
