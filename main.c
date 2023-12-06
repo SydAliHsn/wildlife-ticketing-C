@@ -3,7 +3,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
+
+#define BOOKINGS_FOLDER ("./bookings")
 
 typedef struct Booking
 {
@@ -86,12 +90,12 @@ int main()
 
 void deleteBooking(int bookingId)
 {
-    char fileName[10];
+    char fileName[20];
     FILE *file;
     int res;
     char choice;
 
-    sprintf(fileName, "%d.txt", bookingId);
+    sprintf(fileName, "%s/%d.txt", BOOKINGS_FOLDER, bookingId);
 
     printf("\n\n\tThis is the booking you are going to delete: \n");
     res = displayFile(fileName);
@@ -118,10 +122,10 @@ void deleteBooking(int bookingId)
 
 void displayBooking(int bookingId)
 {
-    char fileName[10];
+    char fileName[20];
     int res;
 
-    sprintf(fileName, "%d.txt", bookingId);
+    sprintf(fileName, "%s/%d.txt", BOOKINGS_FOLDER, bookingId);
 
     res = displayFile(fileName);
 
@@ -134,7 +138,7 @@ void displayBooking(int bookingId)
     getch();
 }
 
-int displayFile(char fileName[10])
+int displayFile(char fileName[20])
 {
     FILE *file;
     char ch;
@@ -369,13 +373,30 @@ char *getTicketName(int ticketId)
 int createBookingFile(struct Booking booking)
 {
     char bookingString[150];
-    char fileName[10];
+    char fileName[20];
     char firstDate[20];
     char secondDate[20];
+
+    // Check if the folder exists
+    struct stat st;
+    if (stat(BOOKINGS_FOLDER, &st) == -1)
+    {
+        // Folder doesn't exist, create it
+        if (mkdir(BOOKINGS_FOLDER) == 0)
+        {
+            printf("Folder created successfully.\n");
+        }
+        else
+        {
+            perror("Error creating bookings folder!");
+            return 1;
+        }
+    }
+
     strcpy(firstDate, getDateString(booking.visitDay));
     strcpy(secondDate, getDateString(booking.visitDay + 1));
 
-    sprintf(fileName, "%d.txt", booking.id);
+    sprintf(fileName, "./bookings/%d.txt", booking.id);
     FILE *file = fopen(fileName, "w");
 
     if (file == NULL)

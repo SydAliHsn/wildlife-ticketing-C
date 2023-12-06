@@ -1,4 +1,5 @@
 .vscode
+bookings
 
 *.txt
 !data.txt
