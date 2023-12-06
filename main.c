@@ -53,6 +53,7 @@ int main()
         switch (choice)
         {
         case 'q':
+            printf("\n\tExiting...\n\n\t\tBye!");
             return 0;
             break;
 
